@@ -1,0 +1,100 @@
+FASTAPI SETUP NOTES (STEP-BY-STEP)
+
+1.  Go to project folder cd “/Users/91sqft/Documents/WorkSpace/FastApi”
+
+2.  Create virtual environment python3 -m venv fastenv
+
+3.  Activate virtual environment - source fastenv/bin/activate
+
+4.  Install dependencies pip install fastapi uvicorn
+
+5.  Create main.py file with code:
+
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get(“/”) def read_root(): return {“message”: “Hello World 🚀”}
+
+🧠 What’s happening overall
+	•	FastAPI() → creates your backend app
+	•	@app.get("/") → defines an API endpoint
+	•	read_root() → function that runs when endpoint is hit
+	•	return {} → response sent to client (JSON)
+
+
+6.  Run the server -  uvicorn main:app –reload
+
+7.  Open in browser http://127.0.0.1:8000 http://127.0.0.1:8000/docs
+
+8.  Deactivate environment (when done) deactivate
+
+9.  Save dependencies pip freeze > requirements.txt
+
+10. Reinstall later pip install -r requirements.txt
+
+NOTES: - Always activate virtual environment before working - Avoid
+spaces in folder names - Use /docs for testing APIs
+
+
+When Project Open again
+This error 👇
+
+zsh: command not found: uvicorn
+
+means uvicorn is not installed in your current environment OR your venv is not active.
+
+⸻
+
+# Go to your FastAPI project folder
+cd FastApi
+
+# Fist time create environment
+python -m venv myenv (this is environment name)
+
+# Activate the virtual environment (enables installed packages like fastapi & uvicorn)
+source myenv/bin/activate
+
+# if requied to install library
+pip install -r requirements.txt (fist add this file then run this command)
+
+# Run the FastAPI server with auto-reload (reloads on code changes)
+uvicorn app:app --reload
+
+
+For Streamlit,  - Front End
+source fastenv/bin/activate
+pip install streamlit
+streamlit run app.py
+-------------------- - - - -- - - - -- - - -- - - -- - - - - - - -- - - - - - - - - -- - - - - - - - - -
+
+🧠 Pydantic (FastAPI) – Short Notes
+	•	Used in FastAPI for data validation
+	•	Based on Python type hints
+	•	Automatically validates request & response data
+
+⸻
+
+✅ Example
+
+from pydantic import BaseModel
+
+class User(BaseModel):
+    name: str
+    age: int
+
+✅ Features
+	•	Type validation (int, str, etc.)
+	•	Default & optional fields
+	•	Auto error response
+	•	Converts data ("25" → 25)
+
+✅ With FastAPI
+
+@app.post("/user")
+def create_user(user: User):
+    return user
+
+🔥 Key Point -> No manual validation needed — FastAPI + Pydantic handles everything automatically.
+
+-------------------- - - - -- - - - -- - - -- - - -- - - - - - - -- - - - - - - - - -- - - - - - - - - -
